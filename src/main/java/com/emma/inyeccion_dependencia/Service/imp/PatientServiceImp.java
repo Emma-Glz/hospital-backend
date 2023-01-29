@@ -1,0 +1,52 @@
+package com.emma.inyeccion_dependencia.Service.imp;
+
+import com.emma.inyeccion_dependencia.Model.Patient;
+import com.emma.inyeccion_dependencia.Repo.IGenericRepo;
+import com.emma.inyeccion_dependencia.Repo.IPatientRepo;
+import com.emma.inyeccion_dependencia.Service.IPatientService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class PatientServiceImp extends CRUDImpl<Patient, Integer> implements IPatientService {
+    private final IPatientRepo repo;
+
+    @Override
+    protected IGenericRepo<Patient, Integer> getRepo() {
+        return repo;
+    }
+
+   /* @Override
+    public Patient save(Patient patient) {
+        return repo.save(patient);
+    }
+
+    @Override
+    public Patient update(Patient patient) {
+        return repo.save(patient);
+    }
+
+    @Override
+    public List<Patient> findAll() {
+        return repo.findAll();
+    }
+
+    @Override
+    public Optional<Patient> findById(Integer id) {
+        return repo.findById(id);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        repo.deleteById(id);
+
+    }*/
+
+
+
+}
+
