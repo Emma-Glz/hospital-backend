@@ -52,9 +52,9 @@ public class PatientController {
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping
-    public ResponseEntity<PatientDTO> update(@Valid @RequestBody PatientDTO dto){
-        Patient obj = service.update(converToEntity(dto));
+    @PutMapping("/{id}")
+    public ResponseEntity<PatientDTO> update(@Valid @RequestBody PatientDTO dto,@PathVariable("id") Integer id ){
+        Patient obj = service.update(converToEntity(dto),id);
         return new ResponseEntity<>(converToDto(obj),OK);
     }
 
