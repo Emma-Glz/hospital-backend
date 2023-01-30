@@ -7,6 +7,7 @@ import com.emma.inyeccion_dependencia.exception.ModelNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,6 +26,7 @@ import static org.springframework.http.HttpStatus.OK;
 public class ExamController {
 
     private final ExamServiceImp service;
+    @Qualifier("defaultMapper")
     private final ModelMapper mapper;
     @GetMapping
     public ResponseEntity<List<ExamDTO>> findAll(){
