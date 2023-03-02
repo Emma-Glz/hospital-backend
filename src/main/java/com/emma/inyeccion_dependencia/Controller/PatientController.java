@@ -9,6 +9,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,6 +20,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -25,6 +29,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/patients")
 @RequiredArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class PatientController {
 
     private final PatientServiceImp service;
@@ -34,6 +39,20 @@ public class PatientController {
     public ResponseEntity<List<PatientDTO>> findAll(){
         List<PatientDTO> list = service.findAll().stream().map(this::converToDto).collect(Collectors.toList());
         return new ResponseEntity<>(list, OK);
+    }
+    @GetMapping("/hateoas/{id}")
+    public EntityModel<PatientDTO> findByIdHateoas(@PathVariable("id") Integer id){
+        Patient obj = service.findById(id);
+
+        //se ocupa entityModel debido a que este ya maneja los links
+        EntityModel<PatientDTO> resource = EntityModel.of(this.converToDto(obj));//resourse = recurso
+        WebMvcLinkBuilder link1 = linkTo(methodOn(this.getClass()).findById(id));//objetivo: generar un link por linkTo(de la libreria de WEbMvc) a traves del mtodo obtener  la clase que hace referencia al metodo findById solo opten la URL
+        WebMvcLinkBuilder link2 = linkTo(methodOn(ExamController.class).findById(id));//objetivo: generar un link por linkTo(de la libreria de WEbMvc) a traves del mtodo obtener  la clase que hace referencia al metodo findById solo opten la URL
+        WebMvcLinkBuilder link3 = linkTo(methodOn(ExamController.class).findAll());
+        resource.add(link1.withRel("patient-info1"));
+        resource.add(link2.withRel("Exam-info-findById"));
+        resource.add(link3.withRel("Exam-info-findAll"));
+        return resource;
     }
 
     @GetMapping("/{id}")

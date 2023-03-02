@@ -1,6 +1,7 @@
 package com.emma.inyeccion_dependencia.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,7 +25,6 @@ public class Medic {
 
     @Column(nullable = false, length = 70)
     private String cmp;
-
-    @Column(nullable = false, length = 50)
+    
     private String photoUrl;
 }

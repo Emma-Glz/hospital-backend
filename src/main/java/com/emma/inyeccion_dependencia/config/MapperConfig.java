@@ -18,10 +18,14 @@ public class MapperConfig {
     @Bean("medicMapper")
     public ModelMapper medicMapper(){
         ModelMapper mapper = new ModelMapper();
-        TypeMap<MedicDTO, Medic> typeMap = mapper.createTypeMap(MedicDTO.class, Medic.class);
-        typeMap.addMapping(MedicDTO::getPrimaryName,(medic, o) -> medic.setFirstName((String) o));
-        typeMap.addMapping(MedicDTO::getSurName,(medic, o) -> medic.setLastName((String) o));
-        typeMap.addMapping(MedicDTO::getPhoto,(medic, o) -> medic.setPhotoUrl((String) o));
+        TypeMap<MedicDTO, Medic> typeMap1 = mapper.createTypeMap(MedicDTO.class, Medic.class);
+        typeMap1.addMapping(MedicDTO::getPrimaryName,(medic, o) -> medic.setFirstName((String) o));
+        typeMap1.addMapping(MedicDTO::getSurName,(medic, o) -> medic.setLastName((String) o));
+        typeMap1.addMapping(MedicDTO::getPhoto,(medic, o) -> medic.setPhotoUrl((String) o));
+
+        TypeMap<Medic, MedicDTO> typeMap2 = mapper.createTypeMap(Medic.class, MedicDTO.class);
+        typeMap2.addMapping(Medic::getFirstName,(medicDTO, o) -> medicDTO.setPrimaryName((String) o));
+        typeMap2.addMapping(Medic::getLastName,(medicDTO, o) -> medicDTO.setSurName((String) o));
         return mapper;
     }
 }
