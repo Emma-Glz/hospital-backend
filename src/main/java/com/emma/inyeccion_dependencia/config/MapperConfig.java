@@ -40,9 +40,8 @@ public class MapperConfig {
         typeMap1.addMapping(e -> e.getMedic().getFirstName(),(dest, v) -> dest.getMedic().setPrimaryName((String) v) );
         typeMap1.addMapping(e -> e.getMedic().getLastName(),(dest, v) -> dest.getMedic().setSurName((String) v) );
         typeMap1.addMapping(e -> e.getMedic().getPhotoUrl(),(dest, v) -> dest.getMedic().setPhoto((String) v) );
-
-        mapper.getConfiguration().setPropertyCondition(context  -> !(context.getSource() instanceof PersistentCollection));
-
+        //using default method lazy
+        //mapper.getConfiguration().setPropertyCondition(context  -> !(context.getSource() instanceof PersistentCollection));
         return mapper;
     }
 }

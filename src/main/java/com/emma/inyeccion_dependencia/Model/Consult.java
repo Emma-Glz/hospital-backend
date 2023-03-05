@@ -41,7 +41,7 @@ public class Consult {
 
     //MAESTRO DETALLE
     //MAPPEDbYENLACE CON SU CONTRAPARTE   consult hace referencia al campo de consultDetail   orphan me ayuda para poder remover de la lista ya que por defect no me dejaria
-    @OneToMany(mappedBy = "consult",cascade = {CascadeType.ALL},orphanRemoval = true)
+    @OneToMany(mappedBy = "consult",cascade = {CascadeType.ALL},orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ConsultDetail> details;
 
 }

@@ -79,7 +79,7 @@ public class ConsultController {
     @GetMapping("/search/date")
     public ResponseEntity<List<ConsultDTO>> searchByDates(@RequestParam(value = "date1") String date1, @RequestParam(value = "date2") String date2 ){
         List<Consult> consults =  service.searchByDates(LocalDateTime.parse(date1), LocalDateTime.parse(date2));
-        List<ConsultDTO> consultsDTO = mapper.map(consults, new TypeToken<List<ConsultDTO>>(){}.getType());
+        List<ConsultDTO> consultsDTO = consultMapper.map(consults, new TypeToken<List<ConsultDTO>>(){}.getType());
         return new ResponseEntity<>(consultsDTO, OK);
     }
 
