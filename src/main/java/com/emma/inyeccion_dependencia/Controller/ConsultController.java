@@ -83,7 +83,6 @@ public class ConsultController {
         return new ResponseEntity<>(consultsDTO, OK);
     }
 
-
     @PutMapping("/{id}")
     public ResponseEntity<ConsultDTO> update(@Valid @RequestBody ConsultDTO dto,@PathVariable("id") Integer id ){
         Consult obj = service.update(converToEntity(dto),id);
